@@ -1,5 +1,5 @@
 import open3d as o3d
-import open3d_tutorial as o3dtut
+import open3d_example as o3dtut
 import numpy as np
 import copy
 
@@ -45,14 +45,14 @@ mesh1.paint_uniform_color([1, 0.706, 0])
 o3d.visualization.draw_geometries([mesh1])
 
 ## Mesh properties
-def chech_properties(name, mesh):
+def check_properties(name, mesh):
     mesh.compute_vertex_normals()
 
     edge_manifold = mesh.is_edge_manifold(allow_boundary_edges=True)
     edge_manifold_boundary = mesh.is_edge_manifold(allow_boundary_edges=False)
     vertex_manifold = mesh.is_vertex_manifold()
     self_intersecting = mesh.is_self_intersecting()
-    watertight = mesh.watertight()
+    watertight = mesh.is_watertight()
     orientable = mesh.is_orientable()
 
     print(name)
@@ -89,8 +89,8 @@ def chech_properties(name, mesh):
 
 knot_mesh_data = o3d.data.KnotMesh()
 knot_mesh = o3d.io.read_triangle_mesh(knot_mesh_data.path)
-chech_properties('KnotMesh', knot_mesh)
-chech_properties('Mobius', o3d.geometry.TriangleMesh.create_mobius(twists=1))
+check_properties('KnotMesh', knot_mesh)
+check_properties('Mobius', o3d.geometry.TriangleMesh.create_mobius(twists=1))
 check_properties('non-manifold edge', o3dtut.get_non_manifold_edge_mesh())
 check_properties('non-manifold vertex', o3dtut.get_non_manifold_vertex_mesh())
 check_properties('open box', o3dtut.get_open_box_mesh())
